@@ -1,5 +1,6 @@
 import "./Dashboard.css";
 import Kanban from "./Kanban";
+import Calendar from "./Calendar";
 
 function Dashboard() {
   return (
@@ -32,6 +33,7 @@ function Dashboard() {
       </div>
 
       <Kanban />
+      <Calendar />
     </section>
   );
 }
