@@ -1,0 +1,153 @@
+.kanban {
+  margin-top: 32px;
+}
+
+.kanban-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.kanban-header h2 {
+  margin: 0;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.kanban-header p {
+  margin: 5px 0 0;
+
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.kanban-add-button {
+  padding: 10px 16px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #111827;
+  color: white;
+
+  font-size: 13px;
+
+  cursor: pointer;
+}
+
+.kanban-add-button:hover {
+  background-color: #1f2937;
+}
+
+.kanban-board {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 16px;
+}
+
+.kanban-column {
+  min-height: 300px;
+
+  padding: 16px;
+
+  background-color: #f1f5f9;
+
+  border-radius: 12px;
+
+  box-sizing: border-box;
+}
+
+.kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.kanban-column-header h3 {
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.kanban-column-header span {
+  min-width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: #ffffff;
+
+  font-size: 12px;
+}
+
+.task-card {
+  padding: 16px;
+  margin-bottom: 12px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+
+  transition: transform 0.15s ease;
+}
+
+.task-card h4 {
+  margin: 10px 0 6px;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.task-card p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.task-priority {
+  display: inline-block;
+
+  padding: 4px 8px;
+
+  border-radius: 6px;
+
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.task-priority.high {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.task-priority.medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.task-priority.low {
+  background-color: #dcfce7;
+  color: #166534;
+}

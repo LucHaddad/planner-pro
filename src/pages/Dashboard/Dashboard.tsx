@@ -1,4 +1,5 @@
 import "./Dashboard.css";
+import Kanban from "./Kanban";
 
 function Dashboard() {
   return (
@@ -29,6 +30,8 @@ function Dashboard() {
           <strong className="stat-value">72%</strong>
         </div>
       </div>
+
+      <Kanban />
     </section>
   );
 }
