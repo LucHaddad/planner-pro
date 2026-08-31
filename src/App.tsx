@@ -1,8 +1,10 @@
-import Sidebar from "./components/Sidebar/Sidebar";
+import DashboardLayout from "./layouts/DashboardLayout/DashboardLayout";
 
 function App() {
   return (
-    <Sidebar />
+    <DashboardLayout>
+      <h1>Meu Dashboard</h1>
+    </DashboardLayout>
   );
 }
 
