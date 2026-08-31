@@ -32,8 +32,10 @@ function Dashboard() {
         </div>
       </div>
 
-      <Kanban />
-      <Calendar />
+      <div className="dashboard-main-grid">
+        <Kanban />
+        <Calendar />
+      </div>
     </section>
   );
 }

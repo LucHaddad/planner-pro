@@ -53,3 +53,13 @@
   font-size: 30px;
   font-weight: 700;
 }
+
+.dashboard-main-grid {
+  display: grid;
+
+  grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
+
+  gap: 20px;
+
+  align-items: start;
+}
