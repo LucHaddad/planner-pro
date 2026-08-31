@@ -1,4 +1,28 @@
 import "./Kanban.css";
+import { tasks } from "./tasks";
+import type { TaskStatus } from "../../types/task";
+
+const columns: {
+  id: TaskStatus;
+  title: string;
+}[] = [
+  {
+    id: "backlog",
+    title: "Backlog",
+  },
+  {
+    id: "todo",
+    title: "A fazer",
+  },
+  {
+    id: "in-progress",
+    title: "Em andamento",
+  },
+  {
+    id: "completed",
+    title: "Concluído",
+  },
+];
 
 function Kanban() {
   return (
@@ -6,7 +30,10 @@ function Kanban() {
       <div className="kanban-header">
         <div>
           <h2>Minhas tarefas</h2>
-          <p>Acompanhe o andamento das suas atividades.</p>
+
+          <p>
+            Acompanhe o andamento das suas atividades.
+          </p>
         </div>
 
         <button className="kanban-add-button">
@@ -16,120 +43,62 @@ function Kanban() {
 
       <div className="kanban-board">
 
-        <div className="kanban-column">
-          <div className="kanban-column-header">
-            <h3>Backlog</h3>
-            <span>2</span>
-          </div>
+        {columns.map((column) => {
 
-          <div className="task-card">
-            <span className="task-priority high">
-              Alta
-            </span>
+          const columnTasks = tasks.filter(
+            (task) => task.status === column.id
+          );
 
-            <h4>Definir estrutura do projeto</h4>
+          return (
+            <div
+              className="kanban-column"
+              key={column.id}
+            >
 
-            <p>
-              Organizar os componentes principais.
-            </p>
-          </div>
+              <div className="kanban-column-header">
 
-          <div className="task-card">
-            <span className="task-priority medium">
-              Média
-            </span>
+                <h3>
+                  {column.title}
+                </h3>
 
-            <h4>Pesquisar referências</h4>
+                <span>
+                  {columnTasks.length}
+                </span>
 
-            <p>
-              Analisar ideias para o Dashboard.
-            </p>
-          </div>
-        </div>
+              </div>
 
+              {columnTasks.map((task) => (
 
-        <div className="kanban-column">
-          <div className="kanban-column-header">
-            <h3>A fazer</h3>
-            <span>2</span>
-          </div>
+                <div
+                  className="task-card"
+                  key={task.id}
+                >
 
-          <div className="task-card">
-            <span className="task-priority high">
-              Alta
-            </span>
+                  <span
+                    className={`task-priority ${task.priority}`}
+                  >
+                    {task.priority === "high" && "Alta"}
 
-            <h4>Criar autenticação</h4>
+                    {task.priority === "medium" && "Média"}
 
-            <p>
-              Implementar Login e Cadastro.
-            </p>
-          </div>
+                    {task.priority === "low" && "Baixa"}
+                  </span>
 
-          <div className="task-card">
-            <span className="task-priority low">
-              Baixa
-            </span>
+                  <h4>
+                    {task.title}
+                  </h4>
 
-            <h4>Definir cores</h4>
+                  <p>
+                    {task.description}
+                  </p>
 
-            <p>
-              Criar identidade visual.
-            </p>
-          </div>
-        </div>
+                </div>
 
+              ))}
 
-        <div className="kanban-column">
-          <div className="kanban-column-header">
-            <h3>Em andamento</h3>
-            <span>1</span>
-          </div>
-
-          <div className="task-card">
-            <span className="task-priority high">
-              Alta
-            </span>
-
-            <h4>Dashboard</h4>
-
-            <p>
-              Construir interface principal.
-            </p>
-          </div>
-        </div>
-
-
-        <div className="kanban-column">
-          <div className="kanban-column-header">
-            <h3>Concluído</h3>
-            <span>2</span>
-          </div>
-
-          <div className="task-card">
-            <span className="task-priority low">
-              Baixa
-            </span>
-
-            <h4>Configurar Vite</h4>
-
-            <p>
-              Criar projeto React + TypeScript.
-            </p>
-          </div>
-
-          <div className="task-card">
-            <span className="task-priority medium">
-              Média
-            </span>
-
-            <h4>Criar Sidebar</h4>
-
-            <p>
-              Implementar navegação lateral.
-            </p>
-          </div>
-        </div>
+            </div>
+          );
+        })}
 
       </div>
     </section>
