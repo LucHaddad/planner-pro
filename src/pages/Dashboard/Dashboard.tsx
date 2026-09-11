@@ -54,6 +54,14 @@ function handleEditTask(task: Task) {
 }
 
 function handleDeleteTask(taskId: string) {
+  const confirmed = window.confirm(
+    "Tem certeza que deseja excluir esta tarefa?"
+  );
+
+  if (!confirmed) {
+    return;
+  }
+
   setTasks((currentTasks) =>
     currentTasks.filter(
       (task) => task.id !== taskId
