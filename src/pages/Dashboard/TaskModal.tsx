@@ -5,17 +5,34 @@ import "./TaskModal.css";
 interface TaskModalProps {
   onClose: () => void;
   onCreate: (task: Task) => void;
+  taskToEdit?: Task;
+  onEdit?: (task: Task) => void;
 }
 
 function TaskModal({
   onClose,
   onCreate,
+  taskToEdit,
+  onEdit,
 }: TaskModalProps) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const isEditing = Boolean(taskToEdit);
+
+  const [title, setTitle] = useState(
+    taskToEdit?.title ?? ""
+  );
+
+  const [description, setDescription] = useState(
+    taskToEdit?.description ?? ""
+  );
+
   const [priority, setPriority] =
-    useState<TaskPriority>("medium");
-  const [dueDate, setDueDate] = useState("");
+    useState<TaskPriority>(
+      taskToEdit?.priority ?? "medium"
+    );
+
+  const [dueDate, setDueDate] = useState(
+    taskToEdit?.dueDate ?? ""
+  );
 
   function handleSubmit(
     event: React.FormEvent<HTMLFormElement>
@@ -23,6 +40,19 @@ function TaskModal({
     event.preventDefault();
 
     if (!title.trim()) {
+      return;
+    }
+
+    if (isEditing && taskToEdit && onEdit) {
+      const updatedTask: Task = {
+        ...taskToEdit,
+        title: title.trim(),
+        description: description.trim(),
+        priority,
+        dueDate,
+      };
+
+      onEdit(updatedTask);
       return;
     }
 
@@ -45,8 +75,17 @@ function TaskModal({
 
         <div className="task-modal-header">
           <div>
-            <h2>Nova tarefa</h2>
-            <p>Adicione uma nova atividade ao seu planner.</p>
+            <h2>
+              {isEditing
+                ? "Editar tarefa"
+                : "Nova tarefa"}
+            </h2>
+
+            <p>
+              {isEditing
+                ? "Atualize as informações da tarefa."
+                : "Adicione uma nova atividade ao seu planner."}
+            </p>
           </div>
 
           <button
@@ -152,7 +191,9 @@ function TaskModal({
               type="submit"
               className="button-primary"
             >
-              Criar tarefa
+              {isEditing
+                ? "Salvar alterações"
+                : "Criar tarefa"}
             </button>
 
           </div>

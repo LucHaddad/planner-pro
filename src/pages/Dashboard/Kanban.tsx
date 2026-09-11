@@ -27,12 +27,16 @@ interface KanbanProps {
   tasks: Task[];
   onNewTask: () => void;
   onMoveTask: (taskId: string, newStatus: TaskStatus) => void;
+  onEditTask: (task: Task) => void;
+  onDeleteTask: (taskId: string) => void;
 }
 
 function Kanban({
   tasks,
   onNewTask,
   onMoveTask,
+  onEditTask,
+  onDeleteTask,
 }: KanbanProps) {
   
   function handleDragStart(
@@ -140,6 +144,24 @@ function Kanban({
                   <p>
                     {task.description}
                   </p>
+
+                  <div className="task-card-actions">
+
+                  <button
+                    type="button"
+                    onClick={() => onEditTask(task)}
+                  >
+                    ✏️ Editar
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => onDeleteTask(task.id)}
+                  >
+                    🗑️ Excluir
+                  </button>
+
+                </div>
 
                 </div>
 

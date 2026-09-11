@@ -16,6 +16,9 @@ function Dashboard() {
   const [isTaskModalOpen, setIsTaskModalOpen] =
     useState(false);
 
+    const [taskToEdit, setTaskToEdit] =
+  useState<Task | null>(null);
+
 function handleCreateTask(task: Task) {
   setTasks((currentTasks) => [
     ...currentTasks,
@@ -34,6 +37,26 @@ function handleMoveTask(
       task.id === taskId
         ? { ...task, status: newStatus }
         : task
+    )
+  );
+}
+
+function handleEditTask(task: Task) {
+  setTasks((currentTasks) =>
+    currentTasks.map((currentTask) =>
+      currentTask.id === task.id
+        ? task
+        : currentTask
+    )
+  );
+
+  setTaskToEdit(null);
+}
+
+function handleDeleteTask(taskId: string) {
+  setTasks((currentTasks) =>
+    currentTasks.filter(
+      (task) => task.id !== taskId
     )
   );
 }
@@ -161,6 +184,8 @@ function handleMoveTask(
         tasks={tasks}
         onNewTask={() => setIsTaskModalOpen(true)}
         onMoveTask={handleMoveTask}
+        onEditTask={(task) => setTaskToEdit(task)}
+        onDeleteTask={handleDeleteTask}
       />
 
         <Calendar />
@@ -168,12 +193,15 @@ function handleMoveTask(
       </div>
 
 
-      {isTaskModalOpen && (
+      {(isTaskModalOpen || taskToEdit) && (
         <TaskModal
-          onClose={() =>
-            setIsTaskModalOpen(false)
-          }
+          onClose={() => {
+            setIsTaskModalOpen(false);
+            setTaskToEdit(null);
+          }}
           onCreate={handleCreateTask}
+          taskToEdit={taskToEdit ?? undefined}
+          onEdit={handleEditTask}
         />
       )}
 
