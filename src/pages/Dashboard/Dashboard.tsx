@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Task } from "../../types/task";
 
 import "./Dashboard.css";
@@ -9,9 +9,19 @@ import TaskModal from "./TaskModal";
 
 import { tasks as initialTasks } from "./tasks";
 
+import { getTasks, saveTasks } from "../../services/taskStorage";
+
 function Dashboard() {
-  const [tasks, setTasks] =
-    useState<Task[]>(initialTasks);
+const [tasks, setTasks] = useState<Task[]>(() => {
+  const storedTasks = getTasks();
+
+  return storedTasks ?? initialTasks;
+});
+
+
+useEffect(() => {
+  saveTasks(tasks);
+}, [tasks]);
 
   const [isTaskModalOpen, setIsTaskModalOpen] =
     useState(false);
