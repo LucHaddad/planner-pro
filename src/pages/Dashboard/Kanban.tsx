@@ -1,6 +1,5 @@
 import "./Kanban.css";
-import { tasks } from "./tasks";
-import type { TaskStatus } from "../../types/task";
+import type { Task, TaskStatus } from "../../types/task";
 
 const columns: {
   id: TaskStatus;
@@ -24,7 +23,46 @@ const columns: {
   },
 ];
 
-function Kanban() {
+interface KanbanProps {
+  tasks: Task[];
+  onNewTask: () => void;
+  onMoveTask: (taskId: string, newStatus: TaskStatus) => void;
+}
+
+function Kanban({
+  tasks,
+  onNewTask,
+  onMoveTask,
+}: KanbanProps) {
+  
+  function handleDragStart(
+    event: React.DragEvent<HTMLDivElement>,
+    taskId: string
+  ) {
+    event.dataTransfer.setData("taskId", taskId);
+  }
+
+  function handleDragOver(
+    event: React.DragEvent<HTMLDivElement>
+  ) {
+    event.preventDefault();
+  }
+
+  function handleDrop(
+    event: React.DragEvent<HTMLDivElement>,
+    newStatus: TaskStatus
+  ) {
+    event.preventDefault();
+
+    const taskId = event.dataTransfer.getData("taskId");
+
+    if (!taskId) {
+      return;
+    }
+
+    onMoveTask(taskId, newStatus);
+  }
+
   return (
     <section className="kanban">
       <div className="kanban-header">
@@ -36,7 +74,10 @@ function Kanban() {
           </p>
         </div>
 
-        <button className="kanban-add-button">
+        <button
+          className="kanban-add-button"
+          onClick={onNewTask}
+        >
           + Nova tarefa
         </button>
       </div>
@@ -53,6 +94,10 @@ function Kanban() {
             <div
               className="kanban-column"
               key={column.id}
+              onDragOver={handleDragOver}
+              onDrop={(event) =>
+                handleDrop(event, column.id)
+              }
             >
 
               <div className="kanban-column-header">
@@ -72,6 +117,10 @@ function Kanban() {
                 <div
                   className="task-card"
                   key={task.id}
+                  draggable
+                  onDragStart={(event) =>
+                    handleDragStart(event, task.id)
+                  }
                 >
 
                   <span
