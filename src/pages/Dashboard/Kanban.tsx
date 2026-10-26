@@ -145,6 +145,12 @@ function Kanban({
                     {task.description}
                   </p>
 
+                  {task.dueDate && (
+                    <div className="task-due-date">
+                      📅 {task.dueDate}
+                   </div>
+                  )}
+
                   <div className="task-card-actions">
 
                   <button

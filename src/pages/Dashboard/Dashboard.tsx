@@ -206,7 +206,10 @@ function handleDeleteTask(taskId: string) {
         onDeleteTask={handleDeleteTask}
       />
 
-        <Calendar />
+        <Calendar
+          tasks={tasks}
+          onEditTask={(task) => setTaskToEdit(task)}
+        />
 
       </div>
 
