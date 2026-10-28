@@ -1,3 +1,4 @@
+import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
 import type { Task } from "../../types/task";
 
@@ -11,7 +12,9 @@ import { tasks as initialTasks } from "./tasks";
 
 import { getTasks, saveTasks } from "../../services/taskStorage";
 
+
 function Dashboard() {
+const { user } = useAuth();
 const [tasks, setTasks] = useState<Task[]>(() => {
   const storedTasks = getTasks();
 
@@ -83,7 +86,7 @@ function handleDeleteTask(taskId: string) {
     <section className="dashboard">
 
       <div className="dashboard-welcome">
-        <h1>Olá, Lucas 👋</h1>
+       <h1>Olá, {user?.name.split(" ")[0] || "Visitante"} 👋</h1>
 
         <p>
           Aqui está um resumo das suas atividades.
