@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/layout/ProtectedRoute";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import DashboardLayout from "./layouts/DashboardLayout/DashboardLayout";
 import { Login } from "./pages/Login/Login";
@@ -7,19 +8,20 @@ import { Login } from "./pages/Login/Login";
 function App() {
   return (
     <BrowserRouter>
-      {/* O AuthProvider envolve todas as rotas */}
       <AuthProvider>
         <Routes>
           {/* Rota pública de Login */}
           <Route path="/login" element={<Login />} />
 
-          {/* Rota principal do Dashboard */}
+          {/* Rota protegida do Dashboard (somente usuários autenticados) */}
           <Route
             path="/dashboard"
             element={
-              <DashboardLayout>
-                <Dashboard />
-              </DashboardLayout>
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <Dashboard />
+                </DashboardLayout>
+              </ProtectedRoute>
             }
           />
 
