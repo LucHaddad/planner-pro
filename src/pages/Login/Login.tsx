@@ -32,8 +32,20 @@ export function Login() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <Input type="email" placeholder="Email" required />
-          <Input type="password" placeholder="Senha" required />
+<Input 
+  label="E-mail" 
+  type="email" 
+  placeholder="seu@email.com" 
+  required 
+/>
+
+<Input 
+  label="Senha" 
+  type="password" 
+  placeholder="••••••••" 
+  required
+/>
+
 
           <Button
             type="submit"
