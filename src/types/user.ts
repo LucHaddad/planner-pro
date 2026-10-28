@@ -1,27 +1,20 @@
-export type UseRole = "SUPERVISOR" | "EMPLOYER" | "ADMINISTRADOR";
+export type UserRole = "SUPERVISOR" | "EMPLOYEE" | "ADMINISTRATOR";
 
-export type User = {
-    id:string;
-    name: string;
-    role: UseRole;
-    avatar?: string;
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  avatar?: string;
 }
 
-export interface LoginCredentials
-{
-    email: string;
-    password: string;
+export interface LoginCredentials {
+  email: string;
+  password: string;
 }
 
-export interface LoginCredentials
-{
-    email: string;
-    password: string;
-}
-
-export interface authState
-{
- user: User | null;
- isAuthenticated: boolean;
- isLoading: boolean;
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+  isLoading: boolean;
 }
